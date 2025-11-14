@@ -1,15 +1,310 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Styled Table — League Statistics</title>
+  <style>
+    /* Reset and sensible defaults */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #f6fbff 0%, #ffffff 100%);
+      color: #1f2937;
+      margin: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 1000px;
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(20, 40, 80, 0.06);
+      border: 1px solid rgba(30, 60, 120, 0.04);
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0 0 12px 0;
+      color: #0f172a;
+    }
+    p.lead {
+      margin: 0 0 16px 0;
+      color: #334155;
+      font-size: 13px;
+    }
+
+    /* Table container enables horizontal scrolling on small screens */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 8px;
+      padding-bottom: 8px;
+    }
+
+    table.styled {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px; /* allow horizontal scroll for narrow screens */
+    }
+
+    thead th {
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      position: sticky;
+      top: 0; /* sticky header */
+      z-index: 2;
+      background: linear-gradient(90deg, #0ea5a4 0%, #3b82f6 100%);
+      color: #ffffff;
+      border-bottom: 3px solid rgba(255,255,255,0.12);
+    }
+
+    tbody td {
+      padding: 12px 14px;
+      font-size: 14px;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    tbody tr:nth-child(even) td {
+      background: linear-gradient(180deg, rgba(59,130,246,0.03), transparent);
+    }
+
+    tbody tr:hover td {
+      background: rgba(99,102,241,0.06);
+      transform: translateY(0);
+    }
+
+    /* Small visual badges for points and rank */
+    .rank {
+      font-weight: 700;
+      width: 48px;
+      text-align: center;
+    }
+
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .points {
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      display: inline-block;
+      min-width: 52px;
+      text-align: center;
+      background: linear-gradient(180deg, #e0f2fe, #bfdbfe);
+      color: #0f172a;
+      box-shadow: inset 0 -2px 0 rgba(15,23,42,0.03);
+    }
+
+    /* Column alignment tweaks */
+    .center { text-align: center; }
+    .num { text-align: right; padding-right: 18px; font-variant-numeric: tabular-nums; }
+
+    /* Responsive typography */
+    @media (max-width: 560px) {
+      thead th, tbody td { padding: 10px 8px; }
+      .logo { width: 28px; height: 28px; font-size: 12px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- add table here -->
+  <div class="card" role="region" aria-labelledby="table-title">
+    <h1 id="table-title">National Football League — Season Snapshot</h1>
+    <p class="lead">A clean table showing top teams and their season statistics. Headers use &lt;thead&gt; and rows are in &lt;tbody&gt;.</p>
 
-        
+    <div class="table-wrap" role="table" aria-label="league standings table">
+      <table class="styled" summary="Rank, Team, Played, Won, Drawn, Lost, Goals For, Goals Against, Goal Difference, Points">
+        <thead>
+          <tr>
+            <th scope="col" class="rank">#</th>
+            <th scope="col">Team</th>
+            <th scope="col" class="center">P</th>
+            <th scope="col" class="center">W</th>
+            <th scope="col" class="center">D</th>
+            <th scope="col" class="center">L</th>
+            <th scope="col" class="num">GF</th>
+            <th scope="col" class="num">GA</th>
+            <th scope="col" class="num">GD</th>
+            <th scope="col" class="points">Pts</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- Row 1 -->
+          <tr>
+            <td class="rank">1</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#ef4444">RF</span>
+                <span>Riverside FC</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">20</td>
+            <td class="center">6</td>
+            <td class="center">4</td>
+            <td class="num">58</td>
+            <td class="num">22</td>
+            <td class="num">+36</td>
+            <td class="points">66</td>
+          </tr>
+
+          <!-- Row 2 -->
+          <tr>
+            <td class="rank">2</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#f97316">MS</span>
+                <span>Maple Stars</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">18</td>
+            <td class="center">8</td>
+            <td class="center">4</td>
+            <td class="num">49</td>
+            <td class="num">24</td>
+            <td class="num">+25</td>
+            <td class="points">62</td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr>
+            <td class="rank">3</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#10b981">BK</span>
+                <span>Brookvale Knights</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">17</td>
+            <td class="center">7</td>
+            <td class="center">6</td>
+            <td class="num">45</td>
+            <td class="num">28</td>
+            <td class="num">+17</td>
+            <td class="points">58</td>
+          </tr>
+
+          <!-- Row 4 -->
+          <tr>
+            <td class="rank">4</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#3b82f6">CT</span>
+                <span>Coast Town</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">15</td>
+            <td class="center">9</td>
+            <td class="center">6</td>
+            <td class="num">42</td>
+            <td class="num">30</td>
+            <td class="num">+12</td>
+            <td class="points">54</td>
+          </tr>
+
+          <!-- Row 5 -->
+          <tr>
+            <td class="rank">5</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#8b5cf6">HC</span>
+                <span>Highcrest City</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">13</td>
+            <td class="center">8</td>
+            <td class="center">9</td>
+            <td class="num">39</td>
+            <td class="num">35</td>
+            <td class="num">+4</td>
+            <td class="points">47</td>
+          </tr>
+
+          <!-- Row 6 -->
+          <tr>
+            <td class="rank">6</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#06b6d4">SV</span>
+                <span>Sunvale</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">12</td>
+            <td class="center">7</td>
+            <td class="center">11</td>
+            <td class="num">36</td>
+            <td class="num">37</td>
+            <td class="num">-1</td>
+            <td class="points">43</td>
+          </tr>
+
+          <!-- Row 7 -->
+          <tr>
+            <td class="rank">7</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#efb419">BL</span>
+                <span>Blue Lake</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">9</td>
+            <td class="center">9</td>
+            <td class="center">12</td>
+            <td class="num">30</td>
+            <td class="num">42</td>
+            <td class="num">-12</td>
+            <td class="points">36</td>
+          </tr>
+
+          <!-- Row 8 -->
+          <tr>
+            <td class="rank">8</td>
+            <td>
+              <div class="team">
+                <span class="logo" style="background:#94a3b8">RD</span>
+                <span>Redford</span>
+              </div>
+            </td>
+            <td class="center">30</td>
+            <td class="center">6</td>
+            <td class="center">6</td>
+            <td class="center">18</td>
+            <td class="num">22</td>
+            <td class="num">58</td>
+            <td class="num">-36</td>
+            <td class="points">24</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
